@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -34,7 +35,7 @@ class User extends Authenticatable
     }
     public function setPasswordAttribute($password){
       if(!empty($password)){
-        $this->attributes['password']=bcrypt($password);
+        $this->attributes['password'] = \Hash::make($password);
       }
     }
     public function isAdmin()

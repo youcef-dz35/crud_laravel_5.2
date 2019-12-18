@@ -2,6 +2,14 @@
 
 @section('content')
 
+@if(Session::has('deleted_post'))
+
+<div class="alert alert-warning">
+<strong>Warning!</strong> {{session('deleted_post')}}
+</div>
+@endif
+
+
   <h1>Posts</h1>
 
   <table class="table">
@@ -23,8 +31,8 @@
         @foreach($posts as $post)
       <tr>
         <td>{{$post->id}}</td>
-        <td> <img height="50" src="{{$post->photo ? $post->photo->file : 'http://placehold.it/50x50'}}" alt=""> </td>
-        <td>{{$post->user->name}}</td>
+        <td> <a href="{{route('admin.posts.edit',$post->id)}}"> <img height="50" src="{{$post->photo ? $post->photo->file : 'http://placehold.it/50x50'}}" alt=""> </a></td>
+        <td><a href="{{route('admin.posts.edit',$post->id)}}">{{$post->user->name}} </a></td>
         <td>{{$post->category ? $post->category->name : 'uncategorized'}}</td>
 
         <td>{{$post->title}}</td>
