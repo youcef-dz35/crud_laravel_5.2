@@ -27,23 +27,18 @@ class AdminCatrgoriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
+        if(($request->name)==""|($request->name)==" "){
+          return "please enter a valid name";
+
+        }
+        else{
         Category::create($request->all());
 
-        return redirect('/admin/categories');
+        return redirect('/admin/categories');}
     }
 
     /**
@@ -66,6 +61,10 @@ class AdminCatrgoriesController extends Controller
     public function edit($id)
     {
         //
+
+        $category= Category::findOrFail($id);
+
+        return view('admin.categories.edit',compact('category'));
     }
 
     /**
@@ -78,6 +77,15 @@ class AdminCatrgoriesController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $category= Category::findOrFail($id);
+        if(($request->name)==""|($request->name)==" "){
+          return "please enter a valid name";
+
+        }
+        else{
+          $category->update($request->all());
+          return redirect('/admin/categories');
+        }
     }
 
     /**
@@ -88,6 +96,8 @@ class AdminCatrgoriesController extends Controller
      */
     public function destroy($id)
     {
+      Category::findOrFail($id)->delete();
+      return redirect('/admin/categories');;
         //
     }
 }
