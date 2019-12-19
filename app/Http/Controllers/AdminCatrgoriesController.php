@@ -97,7 +97,7 @@ class AdminCatrgoriesController extends Controller
     public function destroy($id)
     {
       Category::findOrFail($id)->delete();
-      return redirect('/admin/categories');;
+      return redirect('/admin/categories');
         //
     }
 }
